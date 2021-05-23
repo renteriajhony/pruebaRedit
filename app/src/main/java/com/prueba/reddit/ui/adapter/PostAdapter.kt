@@ -1,22 +1,27 @@
 package com.prueba.reddit.ui.adapter
 
-import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.marginLeft
-import androidx.core.view.marginRight
 import androidx.recyclerview.widget.RecyclerView
 import com.prueba.reddit.R
+import com.prueba.reddit.data.model.post.AllAwardings
 import com.prueba.reddit.data.model.post.Cabecera
-import com.prueba.reddit.data.model.post.Children
 import com.prueba.reddit.data.model.post.Post
+import com.prueba.reddit.ui.PremiosActivity
 import com.squareup.picasso.Picasso
 
-class PostAdapter(val cabecera:Cabecera): RecyclerView.Adapter<PostAdapter.PostHolder>(){
+class PostAdapter(
+    private val cabecera:Cabecera,
+    private val onAdapterClickListener:OnAdapterClickListener
+): RecyclerView.Adapter<PostAdapter.PostHolder>(){
+
+    interface OnAdapterClickListener{
+        fun onPremiosClick(post: Post)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostHolder {
         val layoutInflater = LayoutInflater.from(parent.context).
@@ -47,9 +52,9 @@ class PostAdapter(val cabecera:Cabecera): RecyclerView.Adapter<PostAdapter.PostH
 
         getImgPremios(holder,post)
 
-
-
-
+        holder.ll_premios.setOnClickListener{
+            onAdapterClickListener.onPremiosClick(post)
+        }
     }
 
     fun getImgPremios(holder: PostHolder,post: Post){
