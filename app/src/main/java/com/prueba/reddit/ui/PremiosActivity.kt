@@ -27,7 +27,6 @@ class PremiosActivity : AppCompatActivity() {
             try {
              val bundle = intent.extras!!.getBundle("bundle")
                 post = bundle?.getParcelable<Post>("post")!!
-                println(post.toString())
             }catch (e:Exception){
                  Log.e("Error messaje", e.message.toString())
                  Log.e("Error localizedMessage", e.localizedMessage.toString())

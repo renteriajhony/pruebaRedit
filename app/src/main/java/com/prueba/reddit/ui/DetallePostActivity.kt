@@ -96,8 +96,8 @@ class DetallePostActivity : AppCompatActivity() {
     }
 
     fun postVideoView(post: Post){
-        try {
-            if(post.preview.redditVideoPreview?.fallbackUrl.toString().contains("http")){
+
+            if(!post.preview.redditVideoPreview?.fallbackUrl.isNullOrEmpty()){
                 var mediaControls: MediaController? = null
                 mediaControls = MediaController(binding.vvDetallePost.context)
                 mediaControls!!.setAnchorView(binding.vvDetallePost)
@@ -107,9 +107,29 @@ class DetallePostActivity : AppCompatActivity() {
                 binding.vvDetallePost!!.start()
                 binding.vvDetallePost.visibility = View.VISIBLE
             }
-        }catch (e: Exception){
-            Log.e("Error",e.message.toString())
-        }
 
+        if(!post.preview.redditVideoPreview?.fallbackUrl.isNullOrEmpty()){
+            binding.pbLoadvideo.visibility = View.VISIBLE
+            binding.vvDetallePost.visibility = View.VISIBLE
+            var mediaControls: MediaController? = null
+            mediaControls = MediaController(binding.vvDetallePost.context)
+             mediaControls!!.setAnchorView(binding.vvDetallePost)
+             mediaControls.setMediaPlayer(binding.vvDetallePost)
+            binding.vvDetallePost.setMediaController(mediaControls)
+            binding.vvDetallePost!!.setVideoURI(Uri.parse(post.preview.redditVideoPreview?.fallbackUrl.toString()))
+            binding.vvDetallePost.setOnPreparedListener{mp ->
+                mp.isLooping = true
+                binding.pbLoadvideo.visibility = View.GONE
+
+                Log.i("PrepareListener","Duration = " + binding.vvDetallePost.duration)
+            }
+            binding.vvDetallePost!!.requestFocus()
+            // starting the video
+            binding.vvDetallePost!!.start()
+
+        }else{
+            binding.pbLoadvideo.visibility = View.GONE
+            binding.vvDetallePost.visibility = View.GONE
+        }
     }
 }

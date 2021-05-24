@@ -1,5 +1,6 @@
 package com.prueba.reddit.ui.adapter
 
+import android.app.ProgressDialog
 import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
@@ -103,6 +104,7 @@ class PostAdapter(
         val ll_premios: LinearLayout
         val wv_media: WebView
         val vvPost: VideoView
+        val pb_loadvideo: ProgressBar
         init {
             iv_autor  = this.view.findViewById(R.id.iv_autor)
             tv_prefijo_autor  = this.view.findViewById(R.id.tv_prefijo_autor)
@@ -116,29 +118,36 @@ class PostAdapter(
             ll_premios = this.view.findViewById(R.id.ll_premios)
             wv_media = this.view.findViewById(R.id.wv_media)
             vvPost = this.view.findViewById(R.id.vvPost)
-
+            pb_loadvideo = this.view.findViewById(R.id.pb_loadvideo)
         }
     }
 
     fun postVideoView(holder: PostHolder,post: Post){
-        try {
-            if(post.preview.redditVideoPreview?.fallbackUrl!!.length>0){
-                if(post.preview.redditVideoPreview?.fallbackUrl.toString().contains("http")){
-                    var mediaControls: MediaController? = null
+
+            if(!post.preview.redditVideoPreview?.fallbackUrl.isNullOrEmpty()){
+                holder.pb_loadvideo.visibility = View.VISIBLE
+                holder.vvPost.visibility = View.VISIBLE
+                var mediaControls: MediaController? = null
                     mediaControls = MediaController(holder.vvPost.context)
-                    mediaControls!!.setAnchorView(holder.vvPost)
+                   // mediaControls!!.setAnchorView(holder.vvPost)
+                   // mediaControls.setMediaPlayer(holder.vvPost)
+                  // holder.vvPost.setMediaController(mediaControls)
                     holder.vvPost!!.setVideoURI(Uri.parse(post.preview.redditVideoPreview?.fallbackUrl.toString()))
+                    holder.vvPost.setOnPreparedListener{mp ->
+                    mp.isLooping = true
+                    holder.pb_loadvideo.visibility = View.GONE
+
+                    Log.i("PrepareListener","Duration = " + holder.vvPost.duration)
+                }
                     holder.vvPost!!.requestFocus()
                     // starting the video
                     holder.vvPost!!.start()
-                    holder.vvPost.visibility = View.VISIBLE
-                }
+
             }else{
+                holder.pb_loadvideo.visibility = View.GONE
                 holder.vvPost.visibility = View.GONE
             }
-        }catch (e: Exception){
-            Log.e("Error",e.message.toString())
-        }
+
 
     }
 

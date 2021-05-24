@@ -83,6 +83,7 @@ class PostActivity : AppCompatActivity(), PostAdapter.OnAdapterClickListener {
 
     override fun onDomainClick(post: Post,vw:WebView) {
       //  TODO("Not yet implemented")
+        println("click-->")
         wv_media.loadUrl(post.url.toString())
     }
 }
