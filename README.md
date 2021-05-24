@@ -8,4 +8,4 @@
 
 
 
-![Texto alternativo](1.jpg)
+![Texto alternativo](1.jpeg)
