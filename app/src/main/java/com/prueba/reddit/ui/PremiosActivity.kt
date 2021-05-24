@@ -3,8 +3,12 @@ package com.prueba.reddit.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.ActionMode
+import android.view.Menu
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.prueba.reddit.R
 import com.prueba.reddit.data.model.post.Post
 import com.prueba.reddit.databinding.ActivityPremiosBinding
 import com.prueba.reddit.ui.adapter.PremiosAdapter

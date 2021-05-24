@@ -1,11 +1,12 @@
 package com.prueba.reddit.ui.adapter
 
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.webkit.WebView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.prueba.reddit.R
 import com.prueba.reddit.data.model.post.AllAwardings
@@ -21,6 +22,8 @@ class PostAdapter(
 
     interface OnAdapterClickListener{
         fun onPremiosClick(post: Post)
+        fun onDetalleClick(post: Post)
+        fun onDomainClick(post: Post, webView: WebView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostHolder {
@@ -50,10 +53,22 @@ class PostAdapter(
         holder.tv_totallikes.text= textlikes
         holder.tv_totalcomentarios.text= textcoment
 
+        postVideoView(holder,post)
         getImgPremios(holder,post)
 
         holder.ll_premios.setOnClickListener{
             onAdapterClickListener.onPremiosClick(post)
+        }
+
+        holder.title.setOnClickListener{
+            onAdapterClickListener.onDetalleClick(post)
+        }
+
+        holder.tv_dominio.setOnClickListener{
+            onAdapterClickListener.onDomainClick(post,holder.wv_media)
+        }
+        holder.iv_post.setOnClickListener{
+            onAdapterClickListener.onDomainClick(post,holder.wv_media)
         }
     }
 
@@ -86,7 +101,8 @@ class PostAdapter(
         val tv_totallikes: TextView
         val tv_totalcomentarios: TextView
         val ll_premios: LinearLayout
-
+        val wv_media: WebView
+        val vvPost: VideoView
         init {
             iv_autor  = this.view.findViewById(R.id.iv_autor)
             tv_prefijo_autor  = this.view.findViewById(R.id.tv_prefijo_autor)
@@ -98,8 +114,32 @@ class PostAdapter(
             tv_totallikes = this.view.findViewById(R.id.tv_totallikes)
             tv_totalcomentarios = this.view.findViewById(R.id.tv_totalcomentarios)
             ll_premios = this.view.findViewById(R.id.ll_premios)
+            wv_media = this.view.findViewById(R.id.wv_media)
+            vvPost = this.view.findViewById(R.id.vvPost)
 
         }
+    }
+
+    fun postVideoView(holder: PostHolder,post: Post){
+        try {
+            if(post.preview.redditVideoPreview?.fallbackUrl!!.length>0){
+                if(post.preview.redditVideoPreview?.fallbackUrl.toString().contains("http")){
+                    var mediaControls: MediaController? = null
+                    mediaControls = MediaController(holder.vvPost.context)
+                    mediaControls!!.setAnchorView(holder.vvPost)
+                    holder.vvPost!!.setVideoURI(Uri.parse(post.preview.redditVideoPreview?.fallbackUrl.toString()))
+                    holder.vvPost!!.requestFocus()
+                    // starting the video
+                    holder.vvPost!!.start()
+                    holder.vvPost.visibility = View.VISIBLE
+                }
+            }else{
+                holder.vvPost.visibility = View.GONE
+            }
+        }catch (e: Exception){
+            Log.e("Error",e.message.toString())
+        }
+
     }
 
 }

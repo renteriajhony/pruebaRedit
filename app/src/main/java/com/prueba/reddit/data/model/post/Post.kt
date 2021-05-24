@@ -43,7 +43,7 @@ data class Post (
     @SerializedName("gilded") var gilded : Int,
     @SerializedName("clicked") var clicked : Boolean,
     @SerializedName("title") var title : String? = "",
- //   @SerializedName("link_flair_richtext") var linkFlairRichtext : List<String>,
+    //@SerializedName("link_flair_richtext") var linkFlairRichtext : List<String>?,
     @SerializedName("subreddit_name_prefixed") var subredditNamePrefixed : String? = "",
     @SerializedName("hidden") var hidden : Boolean,
     @SerializedName("pwls") var pwls : Int,
@@ -60,16 +60,16 @@ data class Post (
     @SerializedName("subreddit_type") var subredditType : String? = "",
     @SerializedName("ups") var ups : Int,
     @SerializedName("total_awards_received") var totalAwardsReceived : Int,
-  //  @SerializedName("media_embed") var mediaEmbed : MediaEmbed,
+    @SerializedName("media_embed") var mediaEmbed : MediaEmbed,
     @SerializedName("thumbnail_width") var thumbnailWidth : Int,
     @SerializedName("author_flair_template_id") var authorFlairTemplateId : String? = "",
     @SerializedName("is_original_content") var isOriginalContent : Boolean,
     @SerializedName("user_reports") var userReports : List<String>,
-  //  @SerializedName("secure_media") var secureMedia : String? = "",
+    @SerializedName("secure_media") var secureMedia : SecureMedia?,
     @SerializedName("is_reddit_media_domain") var isRedditMediaDomain : Boolean,
     @SerializedName("is_meta") var isMeta : Boolean,
     @SerializedName("category") var category : String? = "",
-  //  @SerializedName("secure_media_embed") var secureMediaEmbed : SecureMediaEmbed,
+    @SerializedName("secure_media_embed") var secureMediaEmbed : SecureMediaEmbed,
     @SerializedName("link_flair_text") var linkFlairText : String? = "",
     @SerializedName("can_mod_post") var canModPost : Boolean,
     @SerializedName("score") var score : Int,
@@ -78,10 +78,10 @@ data class Post (
     @SerializedName("thumbnail") var thumbnail : String? = "",
     @SerializedName("edited") var edited : Boolean,
     @SerializedName("author_flair_css_class") var authorFlairCssClass : String? = "",
-  //  @SerializedName("author_flair_richtext") var authorFlairRichtext : List<String>,
-  //  @SerializedName("gildings") var gildings : Gildings,
+    //@SerializedName("author_flair_richtext") var authorFlairRichtext : List<String>?,
+    @SerializedName("gildings") var gildings : Gildings,
     @SerializedName("post_hint") var postHint : String? = "",
- //   @SerializedName("content_categories") val contentCategories : String? = "" = "",
+    //@SerializedName("content_categories") val contentCategories : String? = "",
     @SerializedName("is_self") var isSelf : Boolean,
     @SerializedName("mod_note") var modNote : String? = "",
     @SerializedName("created") var created : Int,
@@ -103,7 +103,7 @@ data class Post (
     @SerializedName("is_crosspostable") var isCrosspostable : Boolean,
     @SerializedName("pinned") var pinned : Boolean,
     @SerializedName("over_18") var over18 : Boolean,
- //   @SerializedName("preview") var preview : Preview,
+    @SerializedName("preview") var preview : Preview,
     @SerializedName("all_awardings") var allAwardings : List<AllAwardings>,
     @SerializedName("awarders") var awarders : List<String>,
     @SerializedName("media_only") var mediaOnly : Boolean,
@@ -139,7 +139,7 @@ data class Post (
     @SerializedName("subreddit_subscribers") var subredditSubscribers : Int,
     @SerializedName("created_utc") var createdUtc : Int,
     @SerializedName("num_crossposts") var numCrossposts : Int,
-  //  @SerializedName("media") var media : String? = "" = "",
+    @SerializedName("media") var media : Media?,
     @SerializedName("is_video") var isVideo : Boolean
 
 ) : Parcelable
@@ -158,20 +158,20 @@ data class AllAwardings (
     @SerializedName("coin_reward") var coinReward : Int,
     @SerializedName("icon_url") var iconUrl : String? = "",
     @SerializedName("days_of_premium") var daysOfPremium : Int,
-  //  @SerializedName("tiers_by_required_awardings") var tiersByRequiredAwardings : String? = "",
+    //@SerializedName("tiers_by_required_awardings") var tiersByRequiredAwardings : String? = "",
     @SerializedName("resized_icons") var resizedIcons : List<ResizedIcons>,
     @SerializedName("icon_width") var iconWidth : Int,
     @SerializedName("static_icon_width") var staticIconWidth : Int,
     @SerializedName("start_date") var startDate : String? = "",
     @SerializedName("is_enabled") var isEnabled : Boolean,
     @SerializedName("awardings_required_to_grant_benefits") var awardingsRequiredToGrantBenefits : String? = "",
-    @SerializedName("description") var description : String? = "",
+//    @SerializedName("description") var description : String? = "",
     @SerializedName("end_date") var endDate : String? = "",
     @SerializedName("subreddit_coin_reward") var subredditCoinReward : Int,
     @SerializedName("count") var count : Int,
     @SerializedName("static_icon_height") var staticIconHeight : Int,
     @SerializedName("name") var name : String? = "",
- //   @SerializedName("resized_static_icons") var resizedStaticIcons : List<ResizedStaticIcons>,
+    @SerializedName("resized_static_icons") var resizedStaticIcons : List<ResizedStaticIcons>,
     @SerializedName("icon_format") var iconFormat : String? = "",
     @SerializedName("icon_height") var iconHeight : Int,
     @SerializedName("penny_price") var pennyPrice : Int,
@@ -188,3 +188,129 @@ data class ResizedIcons (
     @SerializedName("height") var height : Int
 
 ) : Parcelable
+
+@Parcelize
+data class MediaEmbed (
+
+    @SerializedName("content") var content : String? = "",
+    @SerializedName("width") var width : Int,
+    @SerializedName("scrolling") var scrolling : Boolean,
+    @SerializedName("height") var height : Int
+
+): Parcelable
+
+@Parcelize
+data class Oembed (
+    @SerializedName("provider_url") var providerUrl : String? = "",
+    @SerializedName("description") var description : String? = "",
+    @SerializedName("title") var title : String,
+    @SerializedName("author_name") var authorName : String? = "",
+    @SerializedName("height") var height : Int,
+    @SerializedName("width") var width : Int,
+    @SerializedName("html") var html : String? = "",
+    @SerializedName("thumbnail_width") var thumbnailWidth : Int,
+    @SerializedName("version") var version : String,
+    @SerializedName("provider_name") var providerName : String? = "",
+    @SerializedName("thumbnail_url") var thumbnailUrl : String? = "",
+    @SerializedName("type") var type : String? = "",
+    @SerializedName("thumbnail_height") var thumbnailHeight : Int
+
+): Parcelable
+
+@Parcelize
+data class SecureMedia (
+
+    @SerializedName("oembed") var oembed : Oembed?,
+    @SerializedName("type") var type : String? = ""
+
+): Parcelable
+
+@Parcelize
+data class SecureMediaEmbed (
+
+    @SerializedName("content") var content : String? = "",
+    @SerializedName("width") var width : Int,
+    @SerializedName("scrolling") var scrolling : Boolean,
+    @SerializedName("media_domain_url") var mediaDomainUrl : String? = "",
+    @SerializedName("height") var height : Int
+
+): Parcelable
+
+@Parcelize
+data class Gildings (
+    @SerializedName("gid_1") var gid1 : Int
+): Parcelable
+
+@Parcelize
+data class Source (
+
+    @SerializedName("url") var url : String? = "",
+    @SerializedName("width") var width : Int,
+    @SerializedName("height") var height : Int
+
+): Parcelable
+
+/*@Parcelize
+data class Variants (
+): Parcelable*/
+
+@Parcelize
+data class Images (
+
+    @SerializedName("source") var source : Source,
+    @SerializedName("resolutions") var resolutions : List<Resolutions>,
+    //@SerializedName("variants") var variants : Variants,
+    @SerializedName("id") var id : String? = ""
+
+): Parcelable
+
+@Parcelize
+data class RedditVideoPreview (
+
+    @SerializedName("bitrate_kbps") var bitrateKbps : Int,
+    @SerializedName("fallback_url") var fallbackUrl : String? = "",
+    @SerializedName("height") var height : Int,
+    @SerializedName("width") var width : Int,
+    @SerializedName("scrubber_media_url") var scrubberMediaUrl : String? = "",
+    @SerializedName("dash_url") var dashUrl : String,
+    @SerializedName("duration") var duration : Int,
+    @SerializedName("hls_url") var hlsUrl : String? = "",
+    @SerializedName("is_gif") var isGif : Boolean,
+    @SerializedName("transcoding_status") var transcodingStatus : String? = ""
+
+): Parcelable
+
+@Parcelize
+data class Preview (
+
+    @SerializedName("images") var images : List<Images>,
+    @SerializedName("reddit_video_preview") var redditVideoPreview : RedditVideoPreview?,
+    @SerializedName("enabled") var enabled : Boolean
+
+): Parcelable
+
+@Parcelize
+data class ResizedStaticIcons (
+
+    @SerializedName("url") var url : String? = "",
+    @SerializedName("width") var width : Int,
+    @SerializedName("height") var height : Int
+
+): Parcelable
+
+@Parcelize
+data class Media (
+
+    @SerializedName("oembed") var oembed : Oembed?,
+    @SerializedName("type") var type : String? = ""
+
+): Parcelable
+
+@Parcelize
+data class Resolutions (
+
+    @SerializedName("url") var url : String? = "",
+    @SerializedName("width") var width : Int,
+    @SerializedName("height") var height : Int
+
+): Parcelable

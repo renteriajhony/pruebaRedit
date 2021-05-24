@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.webkit.WebView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -19,6 +20,7 @@ import com.prueba.reddit.ui.adapter.PostAdapter
 import com.prueba.reddit.vewmodel.post.PostViewModel
 import com.prueba.reddit.vewmodel.post.VMPostFactory
 import com.repaso.reddit.value_object.Resource
+import kotlinx.android.synthetic.main.adapter_post.*
 
 class PostActivity : AppCompatActivity(), PostAdapter.OnAdapterClickListener {
     private lateinit var binding: ActivityPostBinding
@@ -69,5 +71,18 @@ class PostActivity : AppCompatActivity(), PostAdapter.OnAdapterClickListener {
         intent.putExtra("bundle",bundle)
         startActivity(intent)
 
+    }
+
+    override fun onDetalleClick(post: Post) {
+        val intent = Intent(this,DetallePostActivity::class.java)
+        var bundle = Bundle()
+        bundle.putParcelable("post",post)
+        intent.putExtra("bundle",bundle)
+        startActivity(intent)
+    }
+
+    override fun onDomainClick(post: Post,vw:WebView) {
+      //  TODO("Not yet implemented")
+        wv_media.loadUrl(post.url.toString())
     }
 }
