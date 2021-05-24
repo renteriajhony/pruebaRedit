@@ -29,8 +29,6 @@ class PremiosActivity : AppCompatActivity() {
                 post = bundle?.getParcelable<Post>("post")!!
             }catch (e:Exception){
                  Log.e("Error messaje", e.message.toString())
-                 Log.e("Error localizedMessage", e.localizedMessage.toString())
-
             }
 
             binding.rvPremios.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)

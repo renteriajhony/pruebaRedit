@@ -23,16 +23,6 @@ class DetallePostActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-       /* try {
-            val bundle = intent.extras!!.getBundle("bundle")
-            post = bundle?.getParcelable<Post>("post")!!
-            println(post.toString())
-        }catch (e:Exception){
-            Log.e("Error messaje", e.message.toString())
-            Log.e("Error localizedMessage", e.localizedMessage.toString())
-
-        }*/
-
         if (intent.extras != null){
             val bundle = intent.extras!!.getBundle("bundle")
             post = bundle?.getParcelable<Post>("post")!!
@@ -65,8 +55,6 @@ class DetallePostActivity : AppCompatActivity() {
         binding.tvDominio.text= post.domain
         binding.tvTotallikes.text= textlikes
         binding.tvTotalcomentarios.text= textcoment
-        //binding.wvMedia1.loadUrl(post.url.toString())
-
         postVideoView(post)
     }
 
@@ -82,8 +70,6 @@ class DetallePostActivity : AppCompatActivity() {
             Picasso.get().load(post.allAwardings.get(index).iconUrl).into(iv)
             binding.llPremios.addView(iv)
         }
-
-        //http://i.stack.imgur.com/e8nZC.gif
 
     }
 
@@ -112,7 +98,7 @@ class DetallePostActivity : AppCompatActivity() {
             binding.pbLoadvideo.visibility = View.VISIBLE
             binding.vvDetallePost.visibility = View.VISIBLE
             var mediaControls: MediaController? = null
-            mediaControls = MediaController(binding.vvDetallePost.context)
+             mediaControls = MediaController(binding.vvDetallePost.context)
              mediaControls!!.setAnchorView(binding.vvDetallePost)
              mediaControls.setMediaPlayer(binding.vvDetallePost)
             binding.vvDetallePost.setMediaController(mediaControls)

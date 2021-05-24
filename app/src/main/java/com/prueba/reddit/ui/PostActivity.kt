@@ -50,11 +50,9 @@ class PostActivity : AppCompatActivity(), PostAdapter.OnAdapterClickListener {
                     binding.rvPost.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
                     val adapter = PostAdapter(this.cabecera,this)
                     binding.rvPost.adapter = adapter
-                    //Log.d("****:",result.data.toString())
                 }
                 is Resource.Failure -> {
                     binding.rlProgressbar.visibility = View.GONE
-                    Log.d("****:",result.toString())
                     Toast.makeText(this, "Ocurrio un error cargando los datos ", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -63,8 +61,6 @@ class PostActivity : AppCompatActivity(), PostAdapter.OnAdapterClickListener {
     }
 
     override fun onPremiosClick(post: Post) {
-        //Log.e("Post***",post.toString())
-
         val intent = Intent(this,PremiosActivity::class.java)
         var bundle = Bundle()
         bundle.putParcelable("post",post)
@@ -83,7 +79,6 @@ class PostActivity : AppCompatActivity(), PostAdapter.OnAdapterClickListener {
 
     override fun onDomainClick(post: Post,vw:WebView) {
       //  TODO("Not yet implemented")
-        println("click-->")
         wv_media.loadUrl(post.url.toString())
     }
 }
