@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/share"
+        android:icon="@drawable/chat"
+        android:title="@string/app_name"
+        android:contentDescription="@string/appbar_scrolling_view_behavior"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/delete"
+        android:icon="@drawable/chat"
+        android:title="@string/app_name"
+        android:contentDescription="@string/appbar_scrolling_view_behavior"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/more"
+        android:title="@string/app_name"
+        android:contentDescription="@string/appbar_scrolling_view_behavior"
+        app:showAsAction="never" />
+
+</menu>
