@@ -1,4 +1,4 @@
-#Reddy Prueba
+# Reddy Prueba
 
 ### Arquitectura MVVM
 
@@ -43,6 +43,9 @@ El modelo de vista es un actor intermediario entre el modelo y la vista, contien
     * Clases: PostViewModel.kt, VMPostFactory.kt
 
 
+![Texto alternativo](6.png)
+
+
 #### ¿En qué consiste el principio de responsabilidad única? Cuál es su propósito?
 
 Principios del diseño orientado a objetos; Principios SOLID; [SRP] Principio de responsabilidad única
@@ -51,7 +54,7 @@ Principios del diseño orientado a objetos; Principios SOLID; [SRP] Principio de
 Su objetivo es hacer que las clases sean mas suceptibles al cambio y que podamos tener un mejor control para refactorizar y escalar nuestra aplicacion ya que si una clase tiene mas de una responzabilidad es man dificil su sostenibilidad. 
 
 
-#### Imajenes de muestra app
+# Imajenes de muestra app
 
 ![Texto alternativo](1.jpeg)
 ![Texto alternativo](2.jpeg)
